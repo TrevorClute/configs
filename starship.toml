@@ -1,0 +1,68 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+add_newline = false
+format = """
+[╭](#444444)(#ffffff)$directory$line_break$character""" 
+# [╭](#ffffff) [](#ffffff)[ $os ](fg:#3a9efd bg:#ffffff)[ ](#ffffff)$directory$line_break$character""" 
+
+right_format = """$git_branch$git_state$git_status$time"""
+
+[os]
+format = "$symbol"
+disabled = false
+
+[os.symbols]
+Alpine = ''
+Amazon = ''
+Android = ''
+Arch = '󰣇'
+CentOS = ''
+Debian = ''
+EndeavourOS = ''
+Fedora = ''
+FreeBSD = ''
+Garuda = ''
+Gentoo = ''
+Linux = ''
+Macos = ''
+Manjaro = ''
+Mariner = ''
+Mint = ''
+NetBSD = ''
+NixOS = ''
+OpenBSD = ''
+OpenCloudOS = ''
+openEuler = ''
+openSUSE = ''
+OracleLinux = '⊂⊃'
+Pop = ''
+Raspbian = ''
+Redhat = ''
+RedHatEnterprise = ''
+Solus = ''
+SUSE = ''
+Ubuntu = ''
+Unknown = ''
+Windows = ''
+
+[character]
+success_symbol = "[╰─❯](#444444)"
+error_symbol = "[╰─×](#ff0000)"
+
+[git_branch]
+format = "[ $symbol$branch ]($style) "
+symbol = ""
+style = "#6680e7#"
+
+[directory]
+format = "[](#444444)[$path]($style)[ ](#444444)"
+style = "fg:#ffffff bg:#444444"
+truncate_to_repo=true
+
+[username]
+style_user = "#3a9efd"
+show_always = true
+
+[time]
+format = "[$time](#ffff00)"
+time_format = "%a, %I:%M %p"
+disabled = true
