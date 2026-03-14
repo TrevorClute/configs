@@ -1,4 +1,4 @@
-
+-- adds color to string color hex
 return {
   "uga-rosa/ccc.nvim",
   config = function ()

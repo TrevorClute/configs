@@ -7,6 +7,12 @@ return {
   },
   config = function()
     require("nvim-tree").setup({
+      sync_root_with_cwd = true,
+      respect_buf_cwd = true,
+      update_focused_file = {
+          enable = true,
+          update_root = true,
+      },
       view = {
         side = "right",
         adaptive_size = true,
@@ -48,5 +54,6 @@ return {
       end
     })
     vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
+    vim.keymap.set("n", "<leader>rr", ":NvimTreeRefresh<CR>")
   end,
 }

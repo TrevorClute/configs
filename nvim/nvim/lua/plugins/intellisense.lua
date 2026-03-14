@@ -1,40 +1,47 @@
 return {
-  {
-    "hrsh7th/cmp-nvim-lsp",
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    dependencies = {
-      "saadparwaiz1/cmp_luasnip",
-      "rafamadriz/friendly-snippets",
-    },
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    config = function()
-      local cmp = require("cmp")
-      require("luasnip.loaders.from_vscode").lazy_load()
+	{
+		"hrsh7th/cmp-nvim-lsp",
+		dependencies = {
+			"hrsh7th/cmp-path",
+		},
+	},
+	{
+		"L3MON4D3/LuaSnip",
+		dependencies = {
+			"saadparwaiz1/cmp_luasnip",
+			"rafamadriz/friendly-snippets",
+		},
+	},
+	{
+		"hrsh7th/nvim-cmp",
 
-      cmp.setup({
-        snippet = {
-          -- REQUIRED - you must specify a snippet engine
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["J"] = cmp.mapping.select_next_item({ behavior = "insert" }),
-          ["K"] = cmp.mapping.select_prev_item({ behavior = "insert" }),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" }, -- For luasnip users.
-        }, {
-          { name = "buffer" },
-        }),
-      })
-    end,
-  },
+		config = function()
+			local cmp = require("cmp")
+			require("luasnip.loaders.from_vscode").lazy_load()
+
+			cmp.setup({
+
+				snippet = {
+					-- REQUIRED - you must specify a snippet engine
+					expand = function(args)
+						require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+					end,
+				},
+				mapping = cmp.mapping.preset.insert({
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-j>"] = cmp.mapping.select_next_item({ behavior = "insert" }),
+					["<C-k>"] = cmp.mapping.select_prev_item({ behavior = "insert" }),
+					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+				}),
+				sources = cmp.config.sources({
+					{ name = "nvim_lsp" },
+					{ name = "luasnip" }, -- For luasnip users.
+					{ name = "path" },
+          { name = "otter"}
+				}, {
+					{ name = "buffer" },
+				}),
+			})
+		end,
+	},
 }

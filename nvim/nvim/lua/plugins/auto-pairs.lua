@@ -1,3 +1,4 @@
+-- automatically adds closing pair
 return {
 	{
 		"windwp/nvim-autopairs",

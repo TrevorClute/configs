@@ -13,12 +13,12 @@ return {
 					"lua_ls",
 					"ts_ls",
 					"clangd",
-					"jdtls",
 					"angularls",
-          "tailwindcss",
+					"tailwindcss",
 					"html",
 					"cssls",
-          "pylsp"
+					"pylsp",
+					"ruby_lsp",
 				},
 			})
 		end,
@@ -27,33 +27,53 @@ return {
 		"neovim/nvim-lspconfig",
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local lspconfig = require("lspconfig")
+			require("java").setup()
+			vim.lsp.enable("jdtls")
 
-			lspconfig.lua_ls.setup({
-				capabilites = capabilities,
-			})
-			lspconfig.pylsp.setup({
-				capabilites = capabilities,
-			})
-			lspconfig.tailwindcss.setup({
-				capabilites = capabilities,
-			})
-			lspconfig.ts_ls.setup({
-				capabilites = capabilities,
-			})
-			lspconfig.clangd.setup({
+			vim.lsp.config("ruby_lsp", {
+				cmd = { "ruby-lsp" },
+				init_options = {
+					formatter = "rubocop",
+					linters = { "rubocop" },
+				},
 				capabilities = capabilities,
 			})
-			lspconfig.lua_ls.setup({
-				capabilites = capabilities,
-			})
-			lspconfig.angularls.setup({
+
+			vim.lsp.enable("ruby_lsp")
+
+			vim.lsp.config("sorbet", {
+				-- cmd = { "bundle", "exec", "srb", "tc", "--lsp"},
+				cmd = { "bundle", "exec", "srb", "tc", "--lsp", "--disable-watchman" },
 				capabilities = capabilities,
 			})
-			lspconfig.html.setup({
+
+			vim.lsp.enable("sorbet")
+
+			vim.lsp.config("lua_ls", {
 				capabilities = capabilities,
 			})
-			lspconfig.cssls.setup({
+			vim.lsp.config("pylsp", {
+				capabilities = capabilities,
+			})
+			vim.lsp.config("cssls", {
+				capabilities = capabilities,
+			})
+			vim.lsp.config("html", {
+				capabilities = capabilities,
+			})
+			vim.lsp.config("tailwindcss", {
+				capabilities = capabilities,
+			})
+			vim.lsp.config("angularls", {
+				capabilities = capabilities,
+			})
+			vim.lsp.config("jdtls", {
+				capabilities = capabilities,
+			})
+			vim.lsp.config("ts_ls", {
+				capabilities = capabilities,
+			})
+			vim.lsp.config("clangd", {
 				capabilities = capabilities,
 			})
 
@@ -63,6 +83,13 @@ return {
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
 			vim.keymap.set("n", "<leader>di", vim.diagnostic.open_float, {})
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+			vim.keymap.set("n", "]e", function()
+				vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+			end, { desc = "next error" })
+
+			vim.keymap.set("n", "[e", function()
+				vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+			end, { desc = "previous error" })
 		end,
 	},
 }
